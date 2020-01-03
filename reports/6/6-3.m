@@ -29,21 +29,24 @@ colormap(hsv);                    %设置颜色顺序
 title('零输入响应');
 figure;
 
-F1=sym('4/(s*(s+1)*(s+2))+(3*s+13)/((s+1)*(s+2))');            
+syms s;
+F1=4/(s*(s+1)*(s+2))+(3*s+13)/((s+1)*(s+2));            
                       %符号法，S域表达式
 ft1=ilaplace(F1);                      
                       %反拉变换
+subplot(311)
 ezplot(ft1);          %全响应
-figure;
-F3=sym('4/(s*(s+1)*(s+2))'); 
+
+F2=4/(s*(s+1)*(s+2)); 
                       %符号法，S域表达式
-ft3=ilaplace(F3);                      
+ft2=ilaplace(F2);                      
                       %反拉变换
-ezplot(ft3);          %零状态响应
-figure;
-F3=sym('(3*s+13)/((s+1)*(s+2))'); 
+subplot(312)
+ezplot(ft2);          %零状态响应
+
+F3=(3*s+13)/((s+1)*(s+2)); 
                       %符号法，S域表达式
-ft3=ilaplace(F3);                      
-                      %反拉变换
+ft3=ilaplace(F3);     %反拉变换
+subplot(312)
 ezplot(ft3);          %零输入响应
 

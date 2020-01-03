@@ -34,14 +34,17 @@ mesh(x,y,FS);                           %绘制网点图
 surf(x,y,FS);                           %绘制带阴影的三维曲面图
 zlim([-1 100]);
 colormap(hsv);                          %设置颜色顺序
-figure;
 
-F1=sym('(s-2)/(s*(s+1)^3)');            %符号法，S域表达式，第一题
+syms s; % be careful performance issue.
+F1=(s-2)/(s*(s+1)^3);            %符号法，S域表达式，第一题
 ft1=ilaplace(F1);                       %反拉变换
+figure;
+subplot(121)
 ezplot(ft1);
 %title('quest1-3');                     %这一句影响表达式显示了所以不要了
-figure;
-F2=sym('(s+1)*(s+3)/(s*(s+2)*(s+5))');  %符号法，S域表达式，第二题
+
+F2=(s+1)*(s+3)/(s*(s+2)*(s+5));  %符号法，S域表达式，第二题
 ft2=ilaplace(F2);                       %反拉变换
+subplot(122)
 ezplot(ft2);
 %title('quest2-3');

@@ -1,18 +1,18 @@
-ft=sym('cos(2*pi*t)*(heavside(t)-heavside(t-4))'); 
-                      %符号法，t域表达式
-F=laplace(ft)                     
-                      %拉式变换
-%不会求F，不知道怎么作图或者导出表达式
-%ezplot(F);           %拉式变换的图
-x1=-3:0.08:0;         %生成X坐标
-y1=-2:0.08:2;         %生成Y坐标
-[x y]=meshgrid(x1,y1);%产生矩阵
-s=x+i*y;              %产生复平面区域
-FS=abs((3.*s+13)./(s.^2+3.*s+2)+1./((s+2).*(s.^2+3.*s+2)));
-                      %计算拉氏变换样点值和幅值
-mesh(x,y,FS);         %绘制网点图
-surf(x,y,FS);         %绘制带阴影的三维曲面图
-zlim([-1 300]);       %设置z坐标范围
-colormap(hsv);        %设置颜色顺序
-title('全响应');
-figure;
+dt=0.003;
+t=-5:dt:5;
+dw=0.003;
+w=-20:dw;20;
+
+Fw=dt*f*exp(-1j*t'*w);
+x0=0:0.3:1;
+y0=-10:0.3:10;
+[x,y]=meshgrid(x0,y0);
+s=x+1j*y;
+f=cos(2*pi*t).*(stepfun(t,0)-stepfun(t,4));
+Fs=abs(s.*(1-exp(-4*s))./(s.*s+4*pi*pi));
+
+subplot(211)
+mesh(x,y,Fs),surf(x,y,Fs),colormap(hsv),grid on,title('Fs');
+subplot(212)
+plot(w,abs(Fw),'linewidth',2),grid on,title('Fw');
+axis([-12 0 0 2]);
